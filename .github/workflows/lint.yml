@@ -17,6 +17,7 @@ jobs:
         uses: reviewdog/action-yamllint@v1
         with:
           filter_mode: added
+          yamllint_flags: ". --no-warnings"
 
   hadolint:
     name: hadolint
