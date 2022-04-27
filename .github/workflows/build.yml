@@ -1,7 +1,6 @@
 name: Build
 
 on:
-  create:
   pull_request:
     branches:
       - "*"
@@ -36,7 +35,7 @@ jobs:
             type=semver,pattern=v{{major}}
 
       - name: 🔓 Registry login
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+        if: github.event_name == 'push'
         uses: docker/login-action@v1.14.1
         with:
           registry: ghcr.io
@@ -51,4 +50,4 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/386,linux/arm/v7
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          push: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') }}
+          push: ${{ github.event_name == 'push' }}
