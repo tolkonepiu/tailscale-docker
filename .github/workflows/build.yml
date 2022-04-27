@@ -30,7 +30,9 @@ jobs:
             ghcr.io/${{ github.repository }}
           tags: |
             type=ref,event=pr
-            type=semver,pattern={{version}}
+            type=semver,pattern=v{{version}}
+            type=semver,pattern=v{{major}}.{{minor}}
+            type=semver,pattern=v{{major}}
 
       - name: 🔓 Registry login
         if: github.event_name == 'push'
