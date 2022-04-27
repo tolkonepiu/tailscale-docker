@@ -1,3 +1,10 @@
 {
-  "extends": ["config:base"]
+  "extends": ["config:base"],
+  "dependencyDashboard": false,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
 }

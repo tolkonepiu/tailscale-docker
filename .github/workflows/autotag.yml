@@ -1,0 +1,21 @@
+name: Auto-create new tag
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - ".github/**"
+      - "README.md"
+
+jobs:
+  auto-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: 🏷 Create new tag
+        uses: valitydev/action-autotag@v1
