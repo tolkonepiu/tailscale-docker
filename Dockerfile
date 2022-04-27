@@ -1,6 +1,6 @@
 FROM ghcr.io/tailscale/tailscale:v1.24.0
 
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+COPY tailscale.sh /tailscale.sh
+RUN chmod +x /tailscale.sh
 
-CMD [ "/run.sh" ]
+CMD [ "/tailscale.sh" ]

@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - ".github/**"
-      - "README.md"
+    paths:
+      - "Dockerfile"
+      - "tailscale.sh"
 
 jobs:
   auto-tag:
@@ -19,3 +19,5 @@ jobs:
 
       - name: 🏷 Create new tag
         uses: valitydev/action-autotag@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
