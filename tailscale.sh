@@ -30,7 +30,8 @@ else
 fi
 
 echo "Starting tailscaled"
-eval "tailscaled ${TAILSCALED_ARGS}" &
+# shellcheck disable=SC2086
+tailscaled ${TAILSCALED_ARGS} &
 PID=$!
 
 UP_ARGS="--accept-dns=false"
@@ -45,7 +46,8 @@ if [ -n "${EXTRA_ARGS}" ]; then
 fi
 
 echo "Running tailscale up"
-eval "tailscale --socket=/tmp/tailscaled.sock up ${UP_ARGS}"
+# shellcheck disable=SC2086
+tailscale --socket=/tmp/tailscaled.sock up ${UP_ARGS}
 
 if [ -n "${DEST_IP}" ]; then
   echo "Adding iptables rule for DNAT"
