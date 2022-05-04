@@ -15,7 +15,6 @@ jobs:
       - name: ⤵️ Check out code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
 
       - name: ⤴️ Get Tailscale version from Dockerfile
@@ -30,3 +29,5 @@ jobs:
         with:
           tag: ${{ steps.get-tailscale-version.outputs.version }}
           message: "${{ steps.get-tailscale-version.outputs.version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
