@@ -27,9 +27,7 @@ jobs:
       - name: 🏷 Create new tag
         run: |
           tag=${{ steps.get-tailscale-version.outputs.version }}
-          message='${{ steps.get-tailscale-version.outputs.version }}: \
-            PR #${{ github.event.pull_request.number }} \
-            ${{ github.event.pull_request.title }}'
+          message='${{ steps.get-tailscale-version.outputs.version }}'
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
           git tag -a "${tag}" -m "${message}"
