@@ -1,12 +1,12 @@
 name: Auto-create new tag
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
     paths:
       - "Dockerfile"
-      - "tailscale.sh"
 
 jobs:
   auto-tag:
@@ -18,7 +18,15 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_PAT }}
 
+      - name: ⤴️ Get Tailscale version from Dockerfile
+        id: get-tailscale-version
+        run: |
+          TAILSCALE_VERSION=$(cat Dockerfile \
+            | awk -F: '{ print $2 }')
+          echo "::set-output name=version::$TAILSCALE_VERSION"
+
       - name: 🏷 Create new tag
-        uses: valitydev/action-autotag@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: ${{ steps.get-tailscale-version.outputs.version }}
+          message: "${{ steps.get-tailscale-version.outputs.version }}"
