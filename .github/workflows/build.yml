@@ -21,6 +21,13 @@ jobs:
 
       - name: 🏗 Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      
+      - name: ⤴️ Get Tailscale version from Dockerfile
+        id: get-tailscale-version
+        run: |
+          TAILSCALE_VERSION=$(cat Dockerfile \
+            | awk -F: '{ print $2 }')
+          echo "::set-output name=tailscale-version::$TAILSCALE_VERSION"
 
       - name: 🪄 Extract metadata (tags, labels)
         id: meta
@@ -33,6 +40,7 @@ jobs:
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}}.{{minor}}
             type=semver,pattern=v{{major}}
+            type=raw,value=${{ steps.get-tailscale-version.outputs.tailscale-version }}
 
       - name: 🔓 Registry login
         if: github.event_name == 'push'
