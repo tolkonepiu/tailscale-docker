@@ -25,9 +25,14 @@ jobs:
           echo "::set-output name=version::$TAILSCALE_VERSION"
 
       - name: 🏷 Create new tag
-        uses: actions-ecosystem/action-push-tag@v1
-        with:
-          tag: ${{ steps.get-tailscale-version.outputs.version }}
-          message: "${{ steps.get-tailscale-version.outputs.version }}"
+        run: |
+          tag=${{ steps.get-tailscale-version.outputs.version }}
+          message='${{ steps.get-tailscale-version.outputs.version }}: \
+            PR #${{ github.event.pull_request.number }} \
+            ${{ github.event.pull_request.title }}'
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git tag -a "${tag}" -m "${message}" -s
+          git push origin "${tag}"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
