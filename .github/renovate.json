@@ -3,8 +3,8 @@
   "dependencyDashboard": false,
   "packageRules": [
     {
-      "matchUpdateTypes": ["patch", "pin", "digest"],
-      "automerge": false
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
     },
     {
       "datasources": ["docker"],
