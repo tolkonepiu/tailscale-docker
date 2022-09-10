@@ -4,7 +4,21 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["patch", "pin", "digest"],
-      "automerge": true
+      "automerge": false
+    },
+    {
+      "datasources": ["docker"],
+      "enabled": false
+    }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "FROM ghcr\\.io\\/tailscale\\/tailscale:(?<currentValue>.*?)\\n"
+      ],
+      "depNameTemplate": "tailscale/tailscale",
+      "datasourceTemplate": "github-releases"
     }
   ]
 }
