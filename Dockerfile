@@ -1,4 +1,4 @@
-FROM ghcr.io/tailscale/tailscale:v1.94.2
+FROM ghcr.io/tailscale/tailscale:v1.96.5
 
 COPY tailscale.sh /tailscale.sh
 RUN chmod +x /tailscale.sh
